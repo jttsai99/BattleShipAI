@@ -1,0 +1,3 @@
+from .ai_player import AIPlayer
+class SearchDestroyAI(AIPlayer):
+    ...
