@@ -4,9 +4,12 @@ from BattleShip.src import game_config, board, ship, orientation, ship_placement
 from BattleShip.src.firing_location_error import FiringLocationError
 from .player import Player
 
-class HumanPlayer(object):
-    opponents: List["HumanPlayer"]
+class HumanPlayer(object): #change it to HumanPlayer(Player) when you want to change it
+    opponents: List["HumanPlayer"]  #"Player"
     ships: Dict[str, ship.Ship]
+
+    #Change all references to "HumanPlayer" to "Player" when you integrate the Ai parts
+    #delete everything in the __init__ of HumanPlayer class and call super().__init__()
 
     def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["HumanPlayer"]) -> None:
         self.name = 'No Name'

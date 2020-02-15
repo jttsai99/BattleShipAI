@@ -1,9 +1,17 @@
 import random
+from typing import Iterable, List
+
 from BattleShip.src import ship, orientation
 from BattleShip.src.players.player import Player
 
 
 class AIPlayer(Player):
+
+    def __init__(self,other_players:Iterable["Player"]):
+        super().__init__(other_players)
+
+    def init_name(self, player_num: int, other_players: List["Player"]) -> None:
+            self.name = "Ai {}".format(player_num)
 
     def place_ship(self, ship_: ship.Ship) -> None:
         while True:
