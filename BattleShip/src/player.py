@@ -1,10 +1,10 @@
-from typing import Dict, List
-import copy
-from . import game_config, board, ship, orientation, ship_placement, move
+import abc
 from .firing_location_error import FiringLocationError
+from typing import Dict, List
+from . import board, move, game_config, ship, orientation, ship_placement
+import copy
 
-
-class Player(object):
+class Player(abc.ABC):
     opponents: List["Player"]
     ships: Dict[str, ship.Ship]
 
@@ -22,13 +22,7 @@ class Player(object):
             opponent.add_opponent(self)
 
     def init_name(self, player_num: int, other_players: List["Player"]) -> None:
-        while True:
-            self.name = input(f'Player {player_num} please enter your name: ').strip()
-            if self in other_players:
-                print(f'Someone is already using {self.name} for their name.\n'
-                      f'Please choose another name.')
-            else:
-                break
+        ...
 
     def add_opponent(self, opponent: "Player") -> None:
         self.opponents.append(opponent)
@@ -60,46 +54,17 @@ class Player(object):
                 return ship_placement.ShipPlacement(ship_, orientation_, start_row, start_col)
 
     def get_orientation(self, ship_: ship.Ship) -> orientation.Orientation:
-        orientation_ = input(
-            f'{self.name} enter horizontal or vertical for the orientation of {ship_.name} '
-            f'which is {ship_.length} long: ')
-        return orientation.Orientation.from_string(orientation_)
+        ...
 
     def get_start_coords(self, ship_: ship.Ship):
-
-        coords = input(f'{self.name}, enter the starting position for your {ship_.name} ship '
-                       f',which is {ship_.length} long, in the form row, column: ')
-        try:
-            row, col = coords.split(',')
-        except ValueError:
-            raise ValueError(f'{coords} is not in the form x,y')
-
-        try:
-            row = int(row)
-        except ValueError:
-            raise ValueError(f'{row} is not a valid value for row.\n'
-                             f'It should be an integer between 0 and {self.board.num_rows - 1}')
-
-        try:
-            col = int(col)
-        except ValueError:
-            raise ValueError(f'{col} is not a valid value for column.\n'
-                             f'It should be an integer between 0 and {self.board.num_cols - 1}')
-
-        return row, col
+        ...
 
     def all_ships_sunk(self) -> bool:
         return all(ship_.health == 0 for ship_ in self.ships.values())
 
+    @abc.abstractmethod
     def get_move(self) -> move.Move:
-        while True:
-            coords = input(f'{self.name}, enter the location you want to fire at in the form row, column: ')
-            try:
-                firing_location = move.Move.from_str(self, coords)
-            except ValueError as e:
-                print(e)
-                continue
-            return firing_location
+        ...
 
     def fire_at(self, row: int, col: int) -> None:
         opponent = self.opponents[0]
