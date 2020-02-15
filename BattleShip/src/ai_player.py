@@ -1,3 +1,0 @@
-from .human_player import HumanPlayer
-class AIPlayer(HumanPlayer):
-    ...

@@ -1,21 +1,26 @@
 from typing import Dict, List
 import copy
-from . import game_config, board, ship, orientation, ship_placement, move
-from .firing_location_error import FiringLocationError
+from BattleShip.src import game_config, board, ship, orientation, ship_placement, move
+from BattleShip.src.firing_location_error import FiringLocationError
 from .player import Player
 
-class HumanPlayer(Player):
-    opponents: List["Player"]
+class HumanPlayer(object):
+    opponents: List["HumanPlayer"]
     ships: Dict[str, ship.Ship]
 
-    def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]) -> None:
-        super().__init__(other_players)
+    def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["HumanPlayer"]) -> None:
+        self.name = 'No Name'
+        self.init_name(player_num, other_players)
+        self.board = board.Board(config)
+        self.opponents = other_players[:]  # a copy of other players
+        self.ships = copy.deepcopy(config.available_ships)
+        self.place_ships()
 
         # make this player the opponent of all the other players
         for opponent in other_players:
             opponent.add_opponent(self)
 
-    def init_name(self, player_num: int, other_players: List["Player"]) -> None:
+    def init_name(self, player_num: int, other_players: List["HumanPlayer"]) -> None:
         while True:
             self.name = input(f'Player {player_num} please enter your name: ').strip()
             if self in other_players:
@@ -24,7 +29,7 @@ class HumanPlayer(Player):
             else:
                 break
 
-    def add_opponent(self, opponent: "Player") -> None:
+    def add_opponent(self, opponent: "HumanPlayer") -> None:
         self.opponents.append(opponent)
 
     def place_ships(self) -> None:

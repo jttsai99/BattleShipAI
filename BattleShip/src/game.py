@@ -1,9 +1,13 @@
 import itertools
 from typing import Type
 
-from . import game_config, human_player
-from .ai_player import AIPlayer
-from .human_player import HumanPlayer
+from . import game_config
+from .players import human_player
+from BattleShip.src.players.human_player import HumanPlayer
+from BattleShip.src.players.ais.cheating_ai import CheatingAI
+
+from BattleShip.src.players.ais.random_ai import RandomAI
+from BattleShip.src.players.ais.search_destroy_ai import SearchDestroyAI
 
 
 class Game(object):
@@ -40,9 +44,12 @@ class Game(object):
 
     def pick_player_type(self) -> Type:
         possible_players = {
-            'human' : HumanPlayer,
-            'ai' : AIPlayer
+            'Human' : HumanPlayer,
+            'CheatingAi' : CheatingAI,
+            'SearchDestroyAi' : SearchDestroyAI,
+            'RandomAi': RandomAI
         }
+
     @property
     def num_players(self) -> int:
         return len(self.players)

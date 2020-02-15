@@ -1,7 +1,7 @@
 import abc
-from .firing_location_error import FiringLocationError
+from BattleShip.src.firing_location_error import FiringLocationError
 from typing import Dict, List
-from . import board, move, game_config, ship, orientation, ship_placement
+from BattleShip.src import board, move, game_config, ship, orientation, ship_placement
 import copy
 
 class Player(abc.ABC):
@@ -21,6 +21,7 @@ class Player(abc.ABC):
         for opponent in other_players:
             opponent.add_opponent(self)
 
+    @abc.abstractmethod
     def init_name(self, player_num: int, other_players: List["Player"]) -> None:
         ...
 
