@@ -2,6 +2,7 @@ import itertools
 from typing import Type
 
 from . import game_config
+from .game_config import GameConfig
 from .players import human_player
 from BattleShip.src.players.human_player import HumanPlayer
 #from BattleShip.src.players.ais.cheating_ai import CheatingAI
