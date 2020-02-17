@@ -14,9 +14,9 @@ from .players.player import Player
 
 class Game(object):
 
-    def __init__(self, game_config_file: str,randomseed:int,  num_players: int = 2) -> None:
+    def __init__(self, game_config_file: str,seed:int, num_players: int = 2) -> None:
         super().__init__()
-        self.game_config = game_config.GameConfig(game_config_file,randomseed)
+        self.game_config = game_config.GameConfig(game_config_file,seed)
         self.players = []
         self.player_turn = 0
         self.setup_players(num_players)

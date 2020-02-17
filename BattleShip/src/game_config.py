@@ -3,9 +3,9 @@ from . import ship
 
 
 class GameConfig(object):
-    def __init__(self, game_config_file: str,randomseed: int) -> None:
+    def __init__(self, game_config_file: str,seed:int) -> None:
         super().__init__()
-        self.randomseed = randomseed
+        self.seed = seed
         self._num_rows = -1
         self._num_cols = -1
         self.available_ships: Dict[str, ship.Ship] = {}
