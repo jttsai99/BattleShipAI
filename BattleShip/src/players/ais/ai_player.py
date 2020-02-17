@@ -50,10 +50,20 @@ class AIPlayer(Player):
 
     def place_ship(self, ship_: ship.Ship) -> None:
         while True:
-            placement = self.place_row,self.place_col
+            placement = self.get_random_ai_ship_placement()
             try:
                 self.board.place_ship(placement)
             except ValueError as e:
                 print(e)
             else:
                 return
+
+    def get_random_ai_ship_placement(self):
+        while True:
+            try:
+                orientation_ = self.get_orientation(self)
+                start_row, start_col = self.get_ship_start_coords(ship_)
+            except ValueError as e:
+                print(e)
+            else:
+                return ship_placement.ShipPlacement(ship_, orientation_, start_row, start_col)
