@@ -31,22 +31,25 @@ class AIPlayer(Player):
     def get_ship_start_coords(self, ship_: ship.Ship, orientation_: orientation.Orientation):
 
         if orientation_ == orientation.Orientation.HORIZONTAL:
-            row = random.randint(0, self.board.num_rows - 1)
-            col = random.randint(0, self.board.num_cols - ship_.length)
+            self.place_row = random.randint(0, self.board.num_rows - 1)
+            self.place_col = random.randint(0, self.board.num_cols - ship_.length)
         else:
-            row = random.randint(0, self.board.num_rows - ship_.length)
-            col = random.randint(0, self.board.num_cols - 1)
-        return row, col
+            self.place_row = random.randint(0, self.board.num_rows - ship_.length)
+            self.place_col = random.randint(0, self.board.num_cols - 1)
+        return self.place_row, self.place_col
 
     def ai_place_ship(self) -> None:
+        print("Entering ai_place_ship")
         for ship_ in self.ships.values():
+            self.get_ship_orientation()
+            self.get_ship_start_coords()
             self.display_placement_board()
             self.place_ship(ship_)
         self.display_placement_board()
 
     def place_ship(self, ship_: ship.Ship) -> None:
         while True:
-            placement = self.fireatcoords
+            placement = self.place_row,self.place_col
             try:
                 self.board.place_ship(placement)
             except ValueError as e:

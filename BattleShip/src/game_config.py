@@ -5,8 +5,8 @@ from . import ship
 class GameConfig(object):
     def __init__(self, game_config_file: str) -> None:
         super().__init__()
-        self._num_rows = -1
-        self._num_cols = -1
+        #self._num_rows = -1
+        #self._num_cols = -1
         self.available_ships: Dict[str, ship.Ship] = {}
         with open(game_config_file) as config_file:
             board_dims = config_file.readline()
@@ -18,11 +18,13 @@ class GameConfig(object):
 
     @property
     def num_rows(self) -> int:
-        return self._num_rows
+        print("Printing the value of num_rows")
+        print(self._num_rows)
+        return int(self._num_rows)
 
     @property
     def num_cols(self) -> int:
-        return self._num_cols
+        return int(self._num_cols)
 
     def is_legal_ship_symbol(self, ship_name: str) -> bool:
         return ship_name in self.available_ships

@@ -1,16 +1,15 @@
 import random
-from typing import Iterable
+from typing import List, Iterable
 
 from .ai_player import AIPlayer
-from .game_config import GameConfig
 #from ...firing_location_error import FiringLocationError
-from ... import game_config
+from BattleShip.src import game_config
 
 
 class RandomAI(AIPlayer):
 
-    def init_name(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]) -> None:
-        super().__init__(self, player_num, game_config.GameConfig, other_players)
+    def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]) -> None:
+        super().__init__(player_num, game_config.GameConfig, other_players)
         #super().__init__(self,other_players: Iterable["Player"])
 
 

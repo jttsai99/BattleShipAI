@@ -2,9 +2,11 @@ import abc
 
 import self as self
 
+from BattleShip.src import game_config
 from BattleShip.src.firing_location_error import FiringLocationError
 from typing import Dict, List
-from BattleShip.src import board, move, game_config, ship, orientation, ship_placement
+#from BattleShip.src import game_config
+from BattleShip.src import board, move, ship, orientation, ship_placement
 import copy
 
 class Player(abc.ABC):
@@ -13,28 +15,19 @@ class Player(abc.ABC):
 
     def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]) -> None:
         self.name = 'No Name'
+        self.player_num = player_num
         self.init_name(player_num, other_players)
-        self.player_type = ""#self.get_player_type()
         self.board = board.Board(config)
         self.opponents = other_players[:]  # a copy of other players
-        self.ships = copy.deepcopy(config.available_ships)
+        #self.ships = copy.deepcopy(config.available_ships)
+        print(config.available_ships)
         #self.place_ships()
 
         # make this player the opponent of all the other players
         for opponent in other_players:
             opponent.add_opponent(self)
 
-    def get_player_type(self):
-        self.player_type = str(input("Enter one of ['Human', 'CheatingAi', 'SearchDestroyAi', 'RandomAi'] for Player {}'s type: ".format(self.player_num)))
-        if self.player_type.lower() in "human":
-            self.player_type = "Human"
-        elif self.player_type.lower() in "randomai":
-            self.player_type = "RandomAi"
-        elif self.player_type.lower() in "searchdestroyai":
-            self.player_type = "SeachDestroyAi"
-        elif self.player_type.lower() in "cheatingai":
-            self.player_type = "CheatingAi"
-        return self.player_type
+
 
 
 
@@ -83,9 +76,9 @@ class Player(abc.ABC):
     def all_ships_sunk(self) -> bool:
         return all(ship_.health == 0 for ship_ in self.ships.values())
 
-    @abc.abstractmethod
-    def get_move(self) -> move.Move:
-        ...
+    # @abc.abstractmethod
+    # def get_move(self) -> move.Move:
+    #     ...
 
     def fire_at(self, row: int, col: int) -> None:
         opponent = self.opponents[0]
