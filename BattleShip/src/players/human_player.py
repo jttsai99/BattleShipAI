@@ -154,3 +154,6 @@ class HumanPlayer(object): #change it to HumanPlayer(Player) when you want to ch
 
     def get_visible_representation_of_board(self) -> str:
         return self.board.get_display(hidden=False)
+
+    def __str__(self) -> str:
+        return self.name
