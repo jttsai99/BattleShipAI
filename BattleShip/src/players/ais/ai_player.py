@@ -5,11 +5,12 @@ from BattleShip.src import ship, orientation, game_config
 from BattleShip.src.players.player import Player
 
 
+
 class AIPlayer(Player):
 
     def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]):
-        super().__init__(player_num, game_config.GameConfig, other_players)
-        self.fireatcoords = Player.player_type.fireat
+        super().__init__(player_num, config, other_players)
+        #self.fireatcoords = Player.player_type.fireat
         self.ai_place_ship()
 
     def init_name(self, player_num: int, other_players: List["Player"]) -> None:
@@ -41,8 +42,8 @@ class AIPlayer(Player):
     def ai_place_ship(self) -> None:
         print("Entering ai_place_ship")
         for ship_ in self.ships.values():
-            self.get_ship_orientation()
-            self.get_ship_start_coords()
+            shipori = self.get_ship_orientation(self)
+            self.get_ship_start_coords(ship_, shipori)
             self.display_placement_board()
             self.place_ship(ship_)
         self.display_placement_board()

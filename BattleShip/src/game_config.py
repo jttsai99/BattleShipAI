@@ -8,6 +8,7 @@ class GameConfig(object):
         #self._num_rows = -1
         #self._num_cols = -1
         self.available_ships: Dict[str, ship.Ship] = {}
+        self.status = 1
         with open(game_config_file) as config_file:
             board_dims = config_file.readline()
             self._num_rows, self._num_cols = map(int, board_dims.split())
@@ -15,6 +16,9 @@ class GameConfig(object):
                 ship_name, ship_len = ship_info.split()
                 ship_len = int(ship_len)
                 self.available_ships[ship_name[0]] = ship.Ship(ship_name, ship_len)
+
+    def get_status():
+        return self.status
 
     @property
     def num_rows(self) -> int:

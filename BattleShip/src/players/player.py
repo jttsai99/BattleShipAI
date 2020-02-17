@@ -1,15 +1,20 @@
 import abc
 
 import self as self
-
 from BattleShip.src import game_config
+
+
 from BattleShip.src.firing_location_error import FiringLocationError
 from typing import Dict, List
 #from BattleShip.src import game_config
 from BattleShip.src import board, move, ship, orientation, ship_placement
 import copy
 
+from BattleShip.src.game_config import GameConfig
+
+
 class Player(abc.ABC):
+
     opponents: List["Player"]
     ships: Dict[str, ship.Ship]
 
@@ -19,8 +24,9 @@ class Player(abc.ABC):
         self.init_name(player_num, other_players)
         self.board = board.Board(config)
         self.opponents = other_players[:]  # a copy of other players
-        #self.ships = copy.deepcopy(config.available_ships)
-        print(config.available_ships)
+        self.ships = copy.deepcopy(config.available_ships)
+        #print(config.available_ships)
+        #print(config.status)
         #self.place_ships()
 
         # make this player the opponent of all the other players

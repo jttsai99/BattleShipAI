@@ -9,7 +9,7 @@ from BattleShip.src import game_config
 class RandomAI(AIPlayer):
 
     def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]) -> None:
-        super().__init__(player_num, game_config.GameConfig, other_players)
+        super().__init__(player_num, config, other_players)
         #super().__init__(self,other_players: Iterable["Player"])
 
 
