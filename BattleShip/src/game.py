@@ -8,6 +8,8 @@ from BattleShip.src.players.human_player import HumanPlayer
 #from BattleShip.src.players.ais.cheating_ai import CheatingAI
 #from BattleShip.src.players.ais.random_ai import RandomAI
 #from BattleShip.src.players.ais.search_destroy_ai import SearchDestroyAI
+from .players.ais import random_ai, search_destroy_ai, cheating_ai
+from .players.player import Player
 
 
 class Game(object):
@@ -21,7 +23,15 @@ class Game(object):
 
     def setup_players(self, num_players: int) -> None:
         for player_num in range(1, num_players + 1):
-            self.players.append(human_player.HumanPlayer(player_num, self.game_config, self.players))
+            Player.get_player_type()
+            if Player.player_type == "RandomAi":
+                self.players.append(random_ai.RandomAI(player_num, self.config, self.players))
+            elif Player.player_type == "SearchAndDestroyAi":
+                self.players.append(search_destroy_ai.SearchDestroyAI(player_num, self.config, self.players))
+            elif Player.player_type == "CheatingAi":
+                self.players.append(cheating_ai.CheatingAI(player_num, self.config, self.players))
+            else:
+                self.players.append(human_player.HumanPlayer(player_num, self.game_config, self.players))
 
     def play(self) -> None:
         active_player = self.players[0]
@@ -38,9 +48,6 @@ class Game(object):
             move.make()
             if move.ends_turn():
                 break
-
-
-
 
     def pick_player_type(self) -> Type:
         possible_players = {

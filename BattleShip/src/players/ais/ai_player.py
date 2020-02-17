@@ -1,14 +1,16 @@
 import random
 from typing import Iterable, List
 
-from BattleShip.src import ship, orientation
+from BattleShip.src import ship, orientation, game_config
 from BattleShip.src.players.player import Player
 
 
 class AIPlayer(Player):
 
-    def __init__(self,other_players:Iterable["Player"]):
-        super().__init__(other_players)
+    def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]):
+        super().__init__(player_num, game_config.GameConfig, other_players)
+        self.fireatcoords = Player.player_type.fireat
+        self.ai_place_ship()
 
     def init_name(self, player_num: int, other_players: List["Player"]) -> None:
             self.name = "Ai {}".format(player_num)
@@ -35,3 +37,19 @@ class AIPlayer(Player):
             row = random.randint(0, self.board.num_rows - ship_.length)
             col = random.randint(0, self.board.num_cols - 1)
         return row, col
+
+    def ai_place_ship(self) -> None:
+        for ship_ in self.ships.values():
+            self.display_placement_board()
+            self.place_ship(ship_)
+        self.display_placement_board()
+
+    def place_ship(self, ship_: ship.Ship) -> None:
+        while True:
+            placement = self.fireatcoords
+            try:
+                self.board.place_ship(placement)
+            except ValueError as e:
+                print(e)
+            else:
+                return

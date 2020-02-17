@@ -1,5 +1,6 @@
 from .ai_player import AIPlayer
 from .random_ai import RandomAI
+
 class SearchDestroyAI(AIPlayer):
     def __init__(self):
         super.__init__()

@@ -1,4 +1,7 @@
 import abc
+
+import self as self
+
 from BattleShip.src.firing_location_error import FiringLocationError
 from typing import Dict, List
 from BattleShip.src import board, move, game_config, ship, orientation, ship_placement
@@ -9,17 +12,34 @@ class Player(abc.ABC):
     ships: Dict[str, ship.Ship]
 
     def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]) -> None:
-        super().__init__()
         self.name = 'No Name'
         self.init_name(player_num, other_players)
+        self.player_type = ""#self.get_player_type()
         self.board = board.Board(config)
         self.opponents = other_players[:]  # a copy of other players
         self.ships = copy.deepcopy(config.available_ships)
-        self.place_ships()
+        #self.place_ships()
 
         # make this player the opponent of all the other players
         for opponent in other_players:
             opponent.add_opponent(self)
+
+    def get_player_type(self):
+        self.player_type = str(input("Enter one of ['Human', 'CheatingAi', 'SearchDestroyAi', 'RandomAi'] for Player {}'s type: ".format(self.player_num)))
+        if self.player_type.lower() in "human":
+            self.player_type = "Human"
+        elif self.player_type.lower() in "randomai":
+            self.player_type = "RandomAi"
+        elif self.player_type.lower() in "searchdestroyai":
+            self.player_type = "SeachDestroyAi"
+        elif self.player_type.lower() in "cheatingai":
+            self.player_type = "CheatingAi"
+        return self.player_type
+
+
+
+
+
 
     @abc.abstractmethod
     def init_name(self, player_num: int, other_players: List["Player"]) -> None:
