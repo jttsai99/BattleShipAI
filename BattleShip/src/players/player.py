@@ -1,7 +1,5 @@
 import abc
 
-import self as self
-
 from BattleShip.src import game_config
 from BattleShip.src.firing_location_error import FiringLocationError
 from typing import Dict, List
@@ -26,13 +24,6 @@ class Player(abc.ABC):
         # make this player the opponent of all the other players
         for opponent in other_players:
             opponent.add_opponent(self)
-
-
-
-
-
-
-
 
     @abc.abstractmethod
     def init_name(self, player_num: int, other_players: List["Player"]) -> None:

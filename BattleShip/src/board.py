@@ -16,8 +16,8 @@ class Board(object):
         self.miss_marker = 'O'
         self.contents = [
             [cell.Cell(self.empty_marker, self.empty_marker, self.hit_marker, self.miss_marker) for col in
-             range(4)]
-            for row in range(3)
+             range(config.num_cols)]
+            for row in range(config.num_rows)
         ]
 
     @property
