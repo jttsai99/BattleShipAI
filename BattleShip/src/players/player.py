@@ -1,6 +1,5 @@
 import abc
 
-import self as self
 from BattleShip.src import game_config
 
 
