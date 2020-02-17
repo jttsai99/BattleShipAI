@@ -1,7 +1,7 @@
 import random
 from typing import Iterable, List
 
-from BattleShip.src import ship, orientation, game_config
+from BattleShip.src import ship, orientation, game_config, ship_placement
 from BattleShip.src.players.player import Player
 
 
@@ -32,12 +32,12 @@ class AIPlayer(Player):
     def get_ship_start_coords(self, ship_: ship.Ship, orientation_: orientation.Orientation):
 
         if orientation_ == orientation.Orientation.HORIZONTAL:
-            self.place_row = random.randint(0, self.board.num_rows - 1)
-            self.place_col = random.randint(0, self.board.num_cols - ship_.length)
+            self.start_row = random.randint(0, self.board.num_rows - 1)
+            self.start_col = random.randint(0, self.board.num_cols - ship_.length)
         else:
-            self.place_row = random.randint(0, self.board.num_rows - ship_.length)
-            self.place_col = random.randint(0, self.board.num_cols - 1)
-        return self.place_row, self.place_col
+            self.start_row = random.randint(0, self.board.num_rows - ship_.length)
+            self.start_col = random.randint(0, self.board.num_cols - 1)
+        return self.start_row, self.start_col
 
     def ai_place_ship(self) -> None:
         print("Entering ai_place_ship")
@@ -50,7 +50,7 @@ class AIPlayer(Player):
 
     def place_ship(self, ship_: ship.Ship) -> None:
         while True:
-            placement = self.get_random_ai_ship_placement()
+            placement = self.get_random_ai_ship_placement(ship_)
             try:
                 self.board.place_ship(placement)
             except ValueError as e:
@@ -58,10 +58,10 @@ class AIPlayer(Player):
             else:
                 return
 
-    def get_random_ai_ship_placement(self):
+    def get_random_ai_ship_placement(self,ship_):
         while True:
             try:
-                orientation_ = self.get_orientation(self)
+                orientation_ = self.get_orientation(ship_)
                 start_row, start_col = self.get_ship_start_coords(ship_)
             except ValueError as e:
                 print(e)
