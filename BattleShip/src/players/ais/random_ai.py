@@ -1,5 +1,6 @@
 import random
 from typing import List, Iterable
+from random import seed
 
 from .ai_player import AIPlayer
 #from ...firing_location_error import FiringLocationError
