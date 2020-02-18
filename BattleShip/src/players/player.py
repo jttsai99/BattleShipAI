@@ -81,9 +81,9 @@ class Player(abc.ABC):
     def all_ships_sunk(self) -> bool:
         return all(ship_.health == 0 for ship_ in self.ships.values())
 
-    # @abc.abstractmethod
-    # def get_move(self) -> move.Move:
-    #     ...
+    @abc.abstractmethod
+    def get_move(self) -> move.Move:
+        ...
 
     def fire_at(self, row: int, col: int) -> None:
         opponent = self.opponents[0]

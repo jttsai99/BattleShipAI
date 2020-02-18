@@ -4,13 +4,14 @@ from random import seed
 
 from .ai_player import AIPlayer
 #from ...firing_location_error import FiringLocationError
-from BattleShip.src import game_config
+from BattleShip.src import game_config, move
 
 
 class RandomAI(AIPlayer):
 
     def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]) -> None:
         super().__init__(player_num, config, other_players)
+        self.fireat =[]
         #super().__init__(self,other_players: Iterable["Player"])
 
 
@@ -26,6 +27,14 @@ class RandomAI(AIPlayer):
         self.fireat = random.choice(self.list_of_board_coords)
         return self.fireat
 
+    def get_move(self) -> move.Move:
+        try:
+            firing_location = move.Move.from_str(self,self.fireat)
+        except ValueError as e:
+            print(e)
+        return firing_location
+
+
     def delete_fireat_from_list(self):
         if len(self.list_of_board_coords) == 0:
             return False
@@ -34,5 +43,4 @@ class RandomAI(AIPlayer):
                 if i == self.fireat:
                     self.list_of_board_coords.remove(i)
                     return True
-
 
