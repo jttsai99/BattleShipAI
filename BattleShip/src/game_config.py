@@ -18,9 +18,6 @@ class GameConfig(object):
                 ship_len = int(ship_len)
                 self.available_ships[ship_name[0]] = ship.Ship(ship_name, ship_len)
 
-    def get_status(self):
-        return self.status
-
     @property
     def num_rows(self) -> int:
         #print("Printing the value of num_rows")

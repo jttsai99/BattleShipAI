@@ -82,8 +82,12 @@ class Player(abc.ABC):
         return all(ship_.health == 0 for ship_ in self.ships.values())
 
     # @abc.abstractmethod
-    # def get_move(self) -> move.Move:
-    #     ...
+    #def get_move(self) -> move.Move:
+
+
+
+
+         #...
 
     def fire_at(self, row: int, col: int) -> None:
         opponent = self.opponents[0]

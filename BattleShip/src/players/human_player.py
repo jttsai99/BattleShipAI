@@ -4,7 +4,7 @@ from BattleShip.src import game_config, board, ship, orientation, ship_placement
 from BattleShip.src.firing_location_error import FiringLocationError
 from .player import Player
 
-class HumanPlayer(object): #change it to HumanPlayer(Player) when you want to change it
+class HumanPlayer(Player): #change it to HumanPlayer(Player) when you want to change it
     opponents: List["HumanPlayer"]  #"Player"
     ships: Dict[str, ship.Ship]
 

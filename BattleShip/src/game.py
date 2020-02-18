@@ -3,8 +3,9 @@ from typing import Type
 
 from . import game_config
 from .game_config import GameConfig
-from .players import human_player
+from .players import human_player, player
 from BattleShip.src.players.human_player import HumanPlayer
+from BattleShip.src.players.player import Player
 #from BattleShip.src.players.ais.cheating_ai import CheatingAI
 #from BattleShip.src.players.ais.random_ai import RandomAI
 #from BattleShip.src.players.ais.search_destroy_ai import SearchDestroyAI
@@ -55,7 +56,7 @@ class Game(object):
                 break
         print(f'{active_player} won the game!')
 
-    def do_current_players_turn(self, cur_player: human_player.HumanPlayer) -> None:
+    def do_current_players_turn(self, cur_player: player.Player) -> None:
         self.display_gamestate(cur_player)
         while True:
             move = cur_player.get_move()

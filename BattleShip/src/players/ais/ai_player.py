@@ -61,8 +61,8 @@ class AIPlayer(Player):
     def get_random_ai_ship_placement(self,ship_):
         while True:
             try:
-                orientation_ = self.get_orientation(ship_)
-                start_row, start_col = self.get_ship_start_coords(ship_)
+                orientation_ = self.get_ship_orientation(ship_)
+                start_row, start_col = self.get_ship_start_coords(ship_,orientation)
             except ValueError as e:
                 print(e)
             else:
