@@ -1,8 +1,10 @@
+from typing import List
+import random
 from .ai_player import AIPlayer
 from .random_ai import RandomAI
 
 class SearchDestroyAI(AIPlayer):
-    def __init__(self):
+    def __init__(self, player_num: int, other_players: List["Player"]):
         super.__init__()
         self.search_mode = True
 

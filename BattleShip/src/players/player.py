@@ -84,11 +84,6 @@ class Player(abc.ABC):
     # @abc.abstractmethod
     #def get_move(self) -> move.Move:
 
-
-
-
-         #...
-
     def fire_at(self, row: int, col: int) -> None:
         opponent = self.opponents[0]
         if not opponent.board.coords_in_bounds(row, col):

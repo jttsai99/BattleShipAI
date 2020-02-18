@@ -136,24 +136,24 @@ class HumanPlayer(Player): #change it to HumanPlayer(Player) when you want to ch
     def __ne__(self, other: object) -> bool:
         return self != other
 
-    def display_placement_board(self) -> None:
-        print(f"{self.name}'s Placement Board")
-        print(self.get_visible_representation_of_board(), end='')
-
-    def display_scanning_boards(self) -> None:
-        print(f"{self.name}'s Scanning Board")
-        for opponent in self.opponents:
-            print(opponent.get_hidden_representation_of_board(), end='')
-
-    def display_firing_board(self) -> None:
-        print(f"\n{self.name}'s Board")
-        print(self.get_visible_representation_of_board())
-
-    def get_hidden_representation_of_board(self) -> str:
-        return self.board.get_display(hidden=True)
-
-    def get_visible_representation_of_board(self) -> str:
-        return self.board.get_display(hidden=False)
+    # def display_placement_board(self) -> None:
+    #     print(f"{self.name}'s Placement Board")
+    #     print(self.get_visible_representation_of_board(), end='')
+    #
+    # def display_scanning_boards(self) -> None:
+    #     print(f"{self.name}'s Scanning Board")
+    #     for opponent in self.opponents:
+    #         print(opponent.get_hidden_representation_of_board(), end='')
+    #
+    # def display_firing_board(self) -> None:
+    #     print(f"\n{self.name}'s Board")
+    #     print(self.get_visible_representation_of_board())
+    #
+    # def get_hidden_representation_of_board(self) -> str:
+    #     return self.board.get_display(hidden=True)
+    #
+    # def get_visible_representation_of_board(self) -> str:
+    #     return self.board.get_display(hidden=False)
 
     def __str__(self) -> str:
         return self.name

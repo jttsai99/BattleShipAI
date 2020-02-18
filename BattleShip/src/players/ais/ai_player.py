@@ -1,6 +1,6 @@
 import random
 from typing import Iterable, List
-
+from random import seed
 from BattleShip.src import ship, orientation, game_config, ship_placement
 from BattleShip.src.players.player import Player
 
@@ -10,6 +10,7 @@ class AIPlayer(Player):
 
     def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]):
         super().__init__(player_num, config, other_players)
+        seed(config.seed)
         #self.fireatcoords = Player.player_type.fireat
         self.ai_place_ship()
 

@@ -64,14 +64,6 @@ class Game(object):
             if move.ends_turn():
                 break
 
-    def pick_player_type(self) -> Type:
-        possible_players = {
-            'Human' : HumanPlayer,
-            #'CheatingAi' : CheatingAI,
-            #'SearchDestroyAi' : SearchDestroyAI,
-            #'RandomAi': RandomAI
-        }
-
     @property
     def num_players(self) -> int:
         return len(self.players)

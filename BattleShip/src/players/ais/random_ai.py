@@ -15,14 +15,15 @@ class RandomAI(AIPlayer):
         super().__init__(player_num, config, other_players)
         self.list_of_board_coords = self.list_of_all_board_coords()
         #super().__init__(self,other_players: Iterable["Player"])
-
+    def init_name(self, player_num: int, other_players: List["Player"]) -> None:
+            self.name = "Random Ai {}".format(player_num)
 
     def list_of_all_board_coords(self):
         self.list_of_board_coords = []
         for i in range(self.board.num_rows):
             for j in range(self.board.num_cols):
                 self.list_of_board_coords.append((i, j))
-        print(self.list_of_board_coords)
+        #print(self.list_of_board_coords)
         return self.list_of_board_coords
 
     def select_random_from_list_all_coords(self):
