@@ -1,7 +1,7 @@
 import random
 from typing import Iterable, List
-
-from BattleShip.src import ship, orientation, game_config
+from random import seed
+from BattleShip.src import ship, orientation, game_config, ship_placement
 from BattleShip.src.players.player import Player
 
 
@@ -11,6 +11,7 @@ class AIPlayer(Player):
     def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]):
         super().__init__(player_num, config, other_players)
         #self.fireatcoords = Player.player_type.fireat
+        seed(config.seed)
         self.ai_place_ship()
 
     def init_name(self, player_num: int, other_players: List["Player"]) -> None:
@@ -50,7 +51,7 @@ class AIPlayer(Player):
 
     def place_ship(self, ship_: ship.Ship) -> None:
         while True:
-            placement = self.get_random_ai_ship_placement()
+            placement = self.get_random_ai_ship_placement(ship_)
             try:
                 self.board.place_ship(placement)
             except ValueError as e:
@@ -58,11 +59,11 @@ class AIPlayer(Player):
             else:
                 return
 
-    def get_random_ai_ship_placement(self):
+    def get_random_ai_ship_placement(self,ship_:ship.Ship):
         while True:
             try:
-                orientation_ = self.get_orientation(self)
-                start_row, start_col = self.get_ship_start_coords(ship_)
+                orientation_ = self.get_ship_orientation(ship_)
+                start_row, start_col = self.get_ship_start_coords(ship_,orientation_)
             except ValueError as e:
                 print(e)
             else:
