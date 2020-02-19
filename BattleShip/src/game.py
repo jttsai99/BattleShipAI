@@ -16,7 +16,7 @@ class Game(object):
         self.setup_players(num_players)
 
 
-    def get_player_type(self, player_num):
+    def get_player_type(self, player_num): #dont default to human, create a while loop to ask again
         self.player_type = str(input("Enter one of ['Human', 'CheatingAi', 'SearchDestroyAi', 'RandomAi'] for Player {}'s type: ".format(player_num)).strip())
         if self.player_type.lower() in "cheatingai":
             self.player_type = "CheatingAi"
