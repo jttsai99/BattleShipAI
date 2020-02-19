@@ -41,7 +41,7 @@ class AIPlayer(Player):
             try:
                 self.board.place_ship(placement)
             except ValueError as e:
-                print(e)
+                pass
             else:
                 return
 
@@ -51,6 +51,6 @@ class AIPlayer(Player):
                 orientation_ = self.get_ship_orientation(ship_)
                 start_row, start_col = self.get_ship_start_coords(ship_,orientation_)
             except ValueError as e:
-                print(e)
+                pass
             else:
                 return ship_placement.ShipPlacement(ship_, orientation_, start_row, start_col)
