@@ -17,15 +17,15 @@ class Game(object):
 
 
     def get_player_type(self, player_num):
-        self.player_type = str(input("Enter one of ['Human', 'CheatingAi', 'SearchDestroyAi', 'RandomAi'] for Player {}'s type: ".format(player_num)))
-        if self.player_type.lower() in "human":
-            self.player_type = "Human"
+        self.player_type = str(input("Enter one of ['Human', 'CheatingAi', 'SearchDestroyAi', 'RandomAi'] for Player {}'s type: ".format(player_num)).strip())
+        if self.player_type.lower() in "cheatingai":
+            self.player_type = "CheatingAi"
         elif self.player_type.lower() in "randomai":
             self.player_type = "RandomAi"
         elif self.player_type.lower() in "searchdestroyai":
-            self.player_type = "SeachDestroyAi"
-        elif self.player_type.lower() in "cheatingai":
-            self.player_type = "CheatingAi"
+            self.player_type = "SearchDestroyAi"
+        elif self.player_type.lower() in "human":
+            self.player_type = "Human"
         return self.player_type
 
     def setup_players(self, num_players: int) -> None:
@@ -33,7 +33,7 @@ class Game(object):
             self.get_player_type(player_num)
             if self.player_type == "RandomAi":
                 self.players.append(random_ai.RandomAI(player_num, self.game_config, self.players))
-            elif self.player_type == "SearchAndDestroyAi":
+            elif self.player_type == "SearchDestroyAi":
                 self.players.append(search_destroy_ai.SearchDestroyAI(player_num, self.game_config, self.players))
             elif self.player_type == "CheatingAi":
                 self.players.append(cheating_ai.CheatingAI(player_num, self.game_config, self.players))
