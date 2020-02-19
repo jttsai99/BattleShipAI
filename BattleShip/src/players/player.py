@@ -27,12 +27,6 @@ class Player(abc.ABC):
             opponent.add_opponent(self)
 
 
-
-
-
-
-
-
     @abc.abstractmethod
     def init_name(self, player_num: int, other_players: List["Player"]) -> None:
         ...

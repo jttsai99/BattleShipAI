@@ -1,9 +1,7 @@
 from typing import List
-from BattleShip.src import move
+from BattleShip.src import move, players
 from .ai_player import AIPlayer
 from BattleShip.src import game_config
-from .. import player
-from ..player import Player
 
 class CheatingAI(AIPlayer):
     def __init__(self, player_num: int, config: game_config.GameConfig, other_players: List["Player"]) -> None:
@@ -16,13 +14,14 @@ class CheatingAI(AIPlayer):
         return self.name
 
     def scan_enemy_board(self,other)->str:
-        for i in range(len(other.board.contents)):
-            for j in range(len(other.board.contents[i])):
-                if other.board[i][j]!= "*" or other.board[i][j]!= "X" or other.board[i][j]!= "O":
-                    return (f'{other.board[i][j]},{other.board[i][j]}')
+        for i in range(self.board.num_rows):
+            for j in range(self.board.num_cols):
+                if other.board.contents[i][j].representation()!= "*" and other.board.contents[i][j].representation()!= "X" and other.board.contents[i][j].representation()!= "O":
+                    #print(other.board.contents[i][j])
+                    return f'{i},{j}'
 
     def get_move(self):
-        coords = self.scan_enemy_board(player)
+        coords = self.scan_enemy_board(self.opponents[0])
         firing_location = move.Move.from_str(self, coords)
         return firing_location
 
