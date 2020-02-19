@@ -1,15 +1,9 @@
 import abc
-
 from BattleShip.src import game_config
-
-
 from BattleShip.src.firing_location_error import FiringLocationError
 from typing import Dict, List
-#from BattleShip.src import game_config
 from BattleShip.src import board, move, ship, orientation, ship_placement
 import copy
-
-from BattleShip.src.game_config import GameConfig
 
 
 class Player(abc.ABC):

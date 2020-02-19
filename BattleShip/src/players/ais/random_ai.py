@@ -1,6 +1,5 @@
 import random
 from typing import List, Iterable
-from random import seed
 
 from .ai_player import AIPlayer
 #from ...firing_location_error import FiringLocationError
@@ -28,7 +27,8 @@ class RandomAI(AIPlayer):
 
     def select_random_from_list_all_coords(self):
         self.fireat = random.choice(self.list_of_board_coords)
-        return self.fireat
+        #print(self.fireat[0],",",self.fireat[1])
+        return (f'{self.fireat[0]},{self.fireat[1]}')
 
     def delete_fireat_from_list(self):
         if len(self.list_of_board_coords) == 0:

@@ -1,22 +1,15 @@
 import itertools
-from typing import Type
-
+import random
 from . import game_config
-from .game_config import GameConfig
 from .players import human_player, player
-from BattleShip.src.players.human_player import HumanPlayer
-from BattleShip.src.players.player import Player
-#from BattleShip.src.players.ais.cheating_ai import CheatingAI
-#from BattleShip.src.players.ais.random_ai import RandomAI
-#from BattleShip.src.players.ais.search_destroy_ai import SearchDestroyAI
 from .players.ais import random_ai, search_destroy_ai, cheating_ai
-from .players.player import Player
 
 
 class Game(object):
 
     def __init__(self, game_config_file: str,seed:int, num_players: int = 2) -> None:
         super().__init__()
+        random.seed(seed)
         self.game_config = game_config.GameConfig(game_config_file,seed)
         self.players = []
         self.player_turn = 0
