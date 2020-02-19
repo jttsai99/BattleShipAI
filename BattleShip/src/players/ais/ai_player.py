@@ -19,6 +19,7 @@ class AIPlayer(Player):
         return random.choice([orientation.Orientation.HORIZONTAL, orientation.Orientation.VERTICAL])
 
     def get_ship_start_coords(self, ship_: ship.Ship, orientation_: orientation.Orientation):
+
         if orientation_ == orientation.Orientation.HORIZONTAL:
             self.start_row = random.randint(0, self.board.num_rows - 1)
             self.start_col = random.randint(0, self.board.num_cols - ship_.length)
@@ -31,8 +32,6 @@ class AIPlayer(Player):
         #print("Entering ai_place_ship")
         for ship_ in self.ships.values():
             self.display_placement_board()
-            shipori = self.get_ship_orientation(self)
-            self.get_ship_start_coords(ship_, shipori)
             self.place_ship(ship_)
         self.display_placement_board()
 
@@ -50,7 +49,7 @@ class AIPlayer(Player):
         while True:
             try:
                 orientation_ = self.get_ship_orientation(ship_)
-                start_row, start_col = self.get_ship_start_coords(ship_,orientation)
+                start_row, start_col = self.get_ship_start_coords(ship_,orientation_)
             except ValueError as e:
                 print(e)
             else:
