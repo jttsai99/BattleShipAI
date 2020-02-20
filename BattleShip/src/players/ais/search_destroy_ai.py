@@ -69,10 +69,15 @@ class SearchDestroyAI(AIPlayer):
         return firing_location
 
     def select_circle_coords(self) -> str:
-        if len(self.circle_around_list) == 0:
-            self.create_circle_around()
         self.fireat = self.circle_around_list[0]
-        return (f'{self.fireat[0]},{self.fireat[1]}')
+        row = self.fireat[0]
+        col = self.fireat[1]
+        while self.opponents[0].board.contents[row][col].representation(True) != "*":
+            self.delete_circle()
+            self.fireat = self.circle_around_list[0]
+            row = self.fireat[0]
+            col = self.fireat[1]
+        return (f'{row},{col}')
 
     def create_circle_around(self): #eg: [[2,3],[5,2]....]
         row = self.fireat[0]
