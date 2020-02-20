@@ -46,7 +46,6 @@ class SearchDestroyAI(AIPlayer):
         if self.search_mode == True:
             coords = self.select_random_from_list_all_coords()
             firing_location = move.Move.from_str(self, coords)
-
             self.delete_fireat_from_list()
             return firing_location
 
@@ -110,25 +109,17 @@ class SearchDestroyAI(AIPlayer):
     #
     #
     #
-    def create_circle_around(self):
+    def create_circle_around(self): #eg: [[2,3],[5,2]....]
         self.circle_around_list = []
         self.save_hit_cell = []
-        self.circle_around_list.append((self.newrow - 1,self.newcol))
-        self.circle_around_list.append((self.newrow,self.newcol-1))
-        self.circle_around_list.append((self.newrow+1, self.newcol))
-        self.circle_around_list.append((self.newrow, self.newcol+1))
+        self.circle_around_list.append([self.newrow - 1,self.newcol])
+        self.circle_around_list.append([self.newrow,self.newcol-1])
+        self.circle_around_list.append([self.newrow+1, self.newcol])
+        self.circle_around_list.append([self.newrow, self.newcol+1])
         return self.circle_around_list
-    #
-    # def get_next_from_circle_list(self):
-    #     for i in self.circle_around_list:
-    #         return i
-    #
-    # def delete_from_circle_list(self):
-    #     for i in self.circle_around_list:
-    #         del self.circle_around_list[0]
-    #         return self.circle_around_list
-    #
-    #
+
+
+
     # def get_move(self):
     #
     #     # coords should be string with "row,col"
