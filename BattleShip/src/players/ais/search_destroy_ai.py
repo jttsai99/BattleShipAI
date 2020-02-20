@@ -12,7 +12,7 @@ class SearchDestroyAI(AIPlayer):
         self.search_mode = True
         self.list_of_board_coords = self.list_of_all_board_coords()
         self.circle_around_list = []
-        self.fireat = [0, 0]
+        self.fireat = []
 
         # super().__init__(self,other_players: Iterable["Player"])
 
@@ -45,24 +45,26 @@ class SearchDestroyAI(AIPlayer):
                     return True
 
     def check_hit(self):
-        i = self.fireat[0]
-        j = self.fireat[1]
 
-        if self.opponents[0].board.contents[i][j].representation() == "X":
-            self.create_circle_around()
-            self.search_mode = False
-        else:
-            if len(self.circle_around_list) == 0:
-                self.search_mode = True
+        if len(self.fireat) != 0:
+            i = self.fireat[0]
+            j = self.fireat[1]
+
+            if self.opponents[0].board.contents[i][j].representation() == "X":
+                self.create_circle_around()
+                self.search_mode = False
+            else:
+                if len(self.circle_around_list) == 0:
+                    self.search_mode = True
 
     def get_move(self):
         self.check_hit()
         if self.search_mode == True:
             coords = self.select_random_from_list_all_coords()
-            self.delete_fireat_from_list()
         else:
             coords = self.select_circle_coords()
             self.delete_circle()
+        self.delete_fireat_from_list()
         firing_location = move.Move.from_str(self, coords)
         return firing_location
 
