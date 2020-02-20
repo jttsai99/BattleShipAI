@@ -11,7 +11,8 @@ class SearchDestroyAI(AIPlayer):
         super().__init__(player_num, config, other_players)
         self.search_mode = True
         self.list_of_board_coords = self.list_of_all_board_coords()
-        self.circle_around_list=[]
+        self.circle_around_list = []
+        self.fireat = [0, 0]
 
         # super().__init__(self,other_players: Iterable["Player"])
 
@@ -43,7 +44,16 @@ class SearchDestroyAI(AIPlayer):
                     self.list_of_board_coords.remove(i)
                     return True
 
+    def check_hit(self):
+        i = self.fireat[0]
+        j = self.fireat[1]
+        if self.opponents[0].board.contents[i][j].representation() == "X":
+            self.search_mode = False
+        else:
+            self.search_mode = True
+
     def get_move(self):
+        self.check_hit()
         if self.search_mode == True:
             coords = self.select_random_from_list_all_coords()
             self.delete_fireat_from_list()
@@ -54,34 +64,23 @@ class SearchDestroyAI(AIPlayer):
         return firing_location
 
     def select_circle_coords(self) -> str:
+        if len(self.circle_around_list) == 0:
+            self.create_circle_around()
         self.fireat = self.circle_around_list[0]
         return (f'{self.fireat[0]},{self.fireat[1]}')
 
+    def create_circle_around(self):  # eg: [[2,3],[5,2]....]
+        row = self.fireat[0]
+        col = self.fireat[1]
+        if (col - 1) >= 0:
+            self.circle_around_list.append([row, col - 1])
+        if (row - 1) >= 0:
+            self.circle_around_list.append([row - 1, col])
+        if (col + 1) < self.board.num_cols:
+            self.circle_around_list.append([row, col + 1])
+        if (row + 1) < self.board.num_rows:
+            self.circle_around_list.append([row + 1, col])
 
-    def Search_Destroy_Fire_Method(self,other):
-        if self.search_mode == True:
-            #self.newrow, self.newcol = self.select_random_from_list_all_coords()
-            #self.result = other.board.shoot(self.newrow,self.newcol)
-            if self.result == "Hit":
-                self.search_mode = False
-                self.create_circle_around()
-                return "Hit"
-            else:
-                return "Miss"
-        else:
-            self.nxtrow,self.nxtcol = self.get_next_from_circle_list()
-            self.nxtresult = other.board.shoot(self.nxtrow,self.nxtcol)
-            self.delete_from_circle_list()
-
-
-    def create_circle_around(self): #eg: [[2,3],[5,2]....]
-        self.circle_around_list = []
-        self.save_hit_cell = []
-        self.circle_around_list.append([self.newrow,self.newcol-1])
-        self.circle_around_list.append([self.newrow-1,self.newcol])
-        self.circle_around_list.append([self.newrow, self.newcol+1])
-        self.circle_around_list.append([self.newrow+1, self.newcol])
-        return self.circle_around_list
 
     def delete_circle(self):
         self.circle_around_list.pop(0)
