@@ -77,13 +77,13 @@ class SearchDestroyAI(AIPlayer):
     def create_circle_around(self): #eg: [[2,3],[5,2]....]
         row = self.fireat[0]
         col = self.fireat[1]
-        if (col - 1) >= 0 and self.opponents[0].board.contents[row][col-1].representation(True) == "":
+        if (col - 1) >= 0 and self.opponents[0].board.contents[row][col-1].representation(True) == "*":
             self.circle_around_list.append([row,col-1])
-        if (row - 1) >= 0 and self.opponents[0].board.contents[row-1][col].representation(True) == "":
+        if (row - 1) >= 0 and self.opponents[0].board.contents[row-1][col].representation(True) == "*":
             self.circle_around_list.append([row-1,col])
-        if (col + 1) < self.board.num_cols and self.opponents[0].board.contents[row][col+1].representation(True) == "":
+        if (col + 1) < self.board.num_cols and self.opponents[0].board.contents[row][col+1].representation(True) == "*":
             self.circle_around_list.append([row, col+1])
-        if (row + 1) < self.board.num_rows and self.opponents[0].board.contents[row+1][col].representation(True) == "":
+        if (row + 1) < self.board.num_rows and self.opponents[0].board.contents[row+1][col].representation(True) == "*":
             self.circle_around_list.append([row+1, col])
         return
 
