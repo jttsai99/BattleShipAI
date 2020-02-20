@@ -112,10 +112,10 @@ class SearchDestroyAI(AIPlayer):
     def create_circle_around(self): #eg: [[2,3],[5,2]....]
         self.circle_around_list = []
         self.save_hit_cell = []
-        self.circle_around_list.append([self.newrow - 1,self.newcol])
         self.circle_around_list.append([self.newrow,self.newcol-1])
-        self.circle_around_list.append([self.newrow+1, self.newcol])
+        self.circle_around_list.append([self.newrow-1,self.newcol])
         self.circle_around_list.append([self.newrow, self.newcol+1])
+        self.circle_around_list.append([self.newrow+1, self.newcol])
         return self.circle_around_list
 
 
