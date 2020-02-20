@@ -47,10 +47,13 @@ class SearchDestroyAI(AIPlayer):
     def check_hit(self):
         i = self.fireat[0]
         j = self.fireat[1]
+
         if self.opponents[0].board.contents[i][j].representation() == "X":
+            self.create_circle_around()
             self.search_mode = False
         else:
-            self.search_mode = True
+            if len(self.circle_around_list) == 0:
+                self.search_mode = True
 
     def get_move(self):
         self.check_hit()
@@ -69,17 +72,18 @@ class SearchDestroyAI(AIPlayer):
         self.fireat = self.circle_around_list[0]
         return (f'{self.fireat[0]},{self.fireat[1]}')
 
-    def create_circle_around(self):  # eg: [[2,3],[5,2]....]
+    def create_circle_around(self): #eg: [[2,3],[5,2]....]
         row = self.fireat[0]
         col = self.fireat[1]
-        if (col - 1) >= 0:
-            self.circle_around_list.append([row, col - 1])
-        if (row - 1) >= 0:
-            self.circle_around_list.append([row - 1, col])
-        if (col + 1) < self.board.num_cols:
-            self.circle_around_list.append([row, col + 1])
-        if (row + 1) < self.board.num_rows:
-            self.circle_around_list.append([row + 1, col])
+        if (col - 1) >= 0 and self.opponents[0].board.contents[row][col-1].representation(True) == "":
+            self.circle_around_list.append([row,col-1])
+        if (row - 1) >= 0 and self.opponents[0].board.contents[row-1][col].representation(True) == "":
+            self.circle_around_list.append([row-1,col])
+        if (col + 1) < self.board.num_cols and self.opponents[0].board.contents[row][col+1].representation(True) == "":
+            self.circle_around_list.append([row, col+1])
+        if (row + 1) < self.board.num_rows and self.opponents[0].board.contents[row+1][col].representation(True) == "":
+            self.circle_around_list.append([row+1, col])
+        return
 
 
     def delete_circle(self):
